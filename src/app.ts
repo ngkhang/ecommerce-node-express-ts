@@ -1,6 +1,6 @@
 /* --------------------------------------------------
  * Author: Khang Nguyen - https://github.com/ngkhang
- * Last Updated: 2026-01-27
+ * Last Updated: 2026-01-28
  ------------------------------------------------- */
 
 import compression from 'compression';
@@ -10,9 +10,14 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
+import path from 'path';
+import { corsMiddleware } from '~/config/cors.config';
 
 export const createApp = (): Express => {
   const app = express();
+
+  // Serving static files
+  app.use(express.static(path.join(__dirname, 'public')))
 
   // HTTP request logger middleware
   app.use(morgan('dev'));
@@ -26,6 +31,8 @@ export const createApp = (): Express => {
   app.use(express.urlencoded({ extended: true }));
   // Middleware to parse JSON request bodies
   app.use(express.json());
+  // Enable CORS middleware
+  app.use(corsMiddleware);
 
   // Routes
   app.get('/', (_req: Request, res: Response) => {
