@@ -3,21 +3,23 @@
  * Last Updated: 2026-01-28
  ------------------------------------------------- */
 
+import path from 'path';
+
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import type { Express, Response, Request } from 'express';
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import { StatusCodes, ReasonPhrases } from 'http-status-codes';
-import path from 'path';
+import morgan from 'morgan';
+
 import { corsMiddleware } from '~/config/cors.config';
 
 export const createApp = (): Express => {
   const app = express();
 
   // Serving static files
-  app.use(express.static(path.join(__dirname, 'public')))
+  app.use(express.static(path.join(__dirname, 'public')));
 
   // HTTP request logger middleware
   app.use(morgan('dev'));
@@ -39,11 +41,11 @@ export const createApp = (): Express => {
     res.status(StatusCodes.OK).json({
       statusCode: StatusCodes.OK,
       message: ReasonPhrases.OK,
-      date: new Date,
-    })
-  })
+      date: new Date(),
+    });
+  });
 
   // Handle error
 
   return app;
-}
+};

@@ -1,10 +1,10 @@
 /* --------------------------------------------------
  * Author: Khang Nguyen - https://github.com/ngkhang
- * Last Updated: 2026-01-27
+ * Last Updated: 2026-01-28
  ------------------------------------------------- */
 
 import dotEnv from 'dotenv';
-import z from 'zod';
+import * as z from 'zod';
 
 export const NODE_ENVIRONMENT = ['development', 'test', 'production'] as const;
 
@@ -18,7 +18,7 @@ const envSchema = z.object({
   APP_PORT: z.coerce.number().int().min(0).max(65556),
   APP_HOST: z.string().min(1),
   APP_CORS_ORIGINS: z.string(),
-})
+});
 
 const parsedEnv = envSchema.parse(process.env);
 
@@ -28,7 +28,7 @@ export const Env = {
     host: parsedEnv.APP_HOST,
     port: parsedEnv.APP_PORT,
     corsOrigins: parsedEnv.APP_CORS_ORIGINS,
-  }
-}
+  },
+};
 
 export type Env = typeof Env;
