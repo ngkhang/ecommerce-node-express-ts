@@ -15,6 +15,9 @@ import morgan from 'morgan';
 
 import { corsMiddleware } from '~/config/cors.config';
 
+// Initialize database
+import '~/dbs/initial.mongodb';
+
 export const createApp = (): Express => {
   const app = express();
 
